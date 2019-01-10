@@ -301,12 +301,12 @@ gameScene.update = function () {
         if (this.input.activePointer.downX > this.player.x) {
 
             this.player.anims.play('rights', true);
-            this.player.x += 10;
+            this.player.x += 8;
 
         } else {
 
             this.player.anims.play('lefts', true);
-            this.player.x -= 10;
+            this.player.x -= 8;
 
         }
 
