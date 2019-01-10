@@ -3,9 +3,7 @@ var game;
 var gameWidth = 600;
 var gameHeight = 1024;
 var s;
-var ding;
 var music;
-var audio;
 var score = 10000;
 var scoreText;
 
@@ -192,9 +190,10 @@ gameScene.create = function () {
 
     // create and scale the player and make it collide with world bounds
     this.player = this.physics.add.sprite(290, 920, 'player');
-    this.player.setBounce(0.2);
+    this.player.setOrigin(0.5, 0.5);
     this.player.setCollideWorldBounds(true);
 
+    // create an animation for the player (left turn)
     this.anims.create({
         key: 'lefts',
         frames: this.anims.generateFrameNumbers('player', {
@@ -205,6 +204,7 @@ gameScene.create = function () {
         repeat: -1
     });
 
+    // create an animation for the player (right turn)
     this.anims.create({
         key: 'rights',
         frames: this.anims.generateFrameNumbers('player', {
@@ -229,7 +229,7 @@ gameScene.create = function () {
 
     // create each bell2829
     let randomV = Phaser.Math.Between(-100, -300);
-    this.bells.create(Phaser.Math.Between(275, 325), 250);
+    this.bells.create(Phaser.Math.Between(275, 325), 230);
     this.bells.create(Phaser.Math.Between(75, 125), 50);
     this.bells.create(Phaser.Math.Between(475, 525), -150);
     this.bells.create(Phaser.Math.Between(75, 125), -350);
@@ -296,17 +296,20 @@ gameScene.update = function () {
     // make background scroll endlessly
     this.bg.tilePositionY -= 3;
 
-    // make the player follow our finger in certain speed
-    if (this.input.activePointer.x > this.player.x) {
+    if (this.input.activePointer.isDown) {
 
-        this.player.anims.play('rights', true);
-        this.player.x += 5.5;
+        if (this.input.activePointer.downX > this.player.x) {
 
-    } else if (this.input.activePointer.x < this.player.x) {
-        
-        this.player.anims.play('lefts', true);
-        this.player.x -= 5.5;
-        
+            this.player.anims.play('rights', true);
+            this.player.x += 6;
+
+        } else {
+
+            this.player.anims.play('lefts', true);
+            this.player.x -= 6;
+
+        }
+
     }
 
     // returns an array of all the children
@@ -328,9 +331,6 @@ gameScene.update = function () {
         bells[i].y += bellSpeed;
     }
 
-    // disable gravity on bells
-    //this.bells.allowGravity = false;
-
     // if the player falls down, stop the music and load 'Game Over' scene
     if (this.player.y > 950) {
         music.stop();
@@ -349,7 +349,6 @@ gameScene.update = function () {
 
 // function for jumping on the bells
 gameScene.jumpBell = function (player, bell) {
-    //player, bell
 
     // make the player follow our finger and jump
     gameScene.physics.moveTo(this.player, this.input.activePointer.downX, this.player.y - 1000, 400);
@@ -542,7 +541,7 @@ gameOver.preload = function () {
 gameOver.create = function () {
 
     // add a losing audio
-    //audio2 = this.sound.add('lose');
+    //var audio2 = this.sound.add('lose');
 
     // play
     //audio2.play();
@@ -617,7 +616,7 @@ win.preload = function () {
 win.create = function () {
 
     // add winning audio
-    audio = this.sound.add('win');
+    var audio = this.sound.add('win');
 
     // play
     audio.play();
@@ -652,7 +651,7 @@ window.onload = function () {
             arcade: {
                 // set gravity
                 gravity: {
-                    y: 860
+                    y: 800
                 },
                 debug: false
             }
