@@ -199,8 +199,8 @@ gameScene.create = function () {
     this.anims.create({
         key: 'left',
         frames: this.anims.generateFrameNumbers('player', {
-            start: 5,
-            end: 5
+            start: 4,
+            end: 4
         }),
         frameRate: 10,
         repeat: -1
@@ -210,8 +210,8 @@ gameScene.create = function () {
     this.anims.create({
         key: 'right',
         frames: this.anims.generateFrameNumbers('player', {
-            start: 13,
-            end: 13
+            start: 12,
+            end: 12
         }),
         frameRate: 10,
         repeat: -1
