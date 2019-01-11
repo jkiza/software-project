@@ -314,14 +314,14 @@ gameScene.update = function () {
 
             // animate and move to the right at a certain speed
             this.player.anims.play('right', true);
-            this.player.x += 6;
+            this.player.x += 5.5;
 
             // if it was pressed on the left of the bunny
         } else {
 
             // animate and move to the left at a certain speed
             this.player.anims.play('left', true);
-            this.player.x -= 6;
+            this.player.x -= 5.5;
         }
     }
 
@@ -745,7 +745,7 @@ window.onload = function () {
             arcade: {
                 // set gravity
                 gravity: {
-                    y: 800
+                    y: 820
                 },
                 debug: false
             }
