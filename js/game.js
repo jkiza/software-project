@@ -310,18 +310,18 @@ gameScene.update = function () {
     if (this.input.activePointer.isDown) {
 
         // if it is, check if it was pressed on the right of the bunny
-        if (this.input.activePointer.downX > this.player.x) {
+        if (this.input.activePointer.x > this.player.x) {
 
             // animate and move to the right at a certain speed
             this.player.anims.play('right', true);
-            this.player.x += 8;
+            this.player.x += 6;
 
             // if it was pressed on the left of the bunny
         } else {
 
             // animate and move to the left at a certain speed
             this.player.anims.play('left', true);
-            this.player.x -= 8;
+            this.player.x -= 6;
         }
     }
 

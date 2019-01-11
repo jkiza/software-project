@@ -1,10 +1,5 @@
 {
     "name": "Winter Escape",
     "display": "fullscreen",
-    "orientation": "portrait",
-    "icons": [{
-      "src": "assets/icon.png",
-      "type": "image/png",
-      "sizes": "256x256"
-    }]
+    "orientation": "portrait"
 }
