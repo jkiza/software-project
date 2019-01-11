@@ -2,5 +2,10 @@
     "name": "Winter Escape",
     "display": "fullscreen",
     "orientation": "portrait",
-    "background_color": "#000000"
+    "icons": [
+    {
+      "src": "/assets/icon.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    }]
 }

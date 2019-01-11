@@ -183,13 +183,24 @@ gameScene.create = function () {
     this.player = this.physics.add.sprite(290, 920, 'player');
     this.player.setOrigin(0.5, 0.5);
     this.player.setCollideWorldBounds(true);
+    
+    // create an animation for the player (stand still)
+    this.anims.create({
+        key: 'stand',
+        frames: this.anims.generateFrameNumbers('player', {
+            start: 0,
+            end: 0
+        }),
+        frameRate: 10,
+        repeat: -1
+    });
 
     // create an animation for the player (left turn)
     this.anims.create({
         key: 'left',
         frames: this.anims.generateFrameNumbers('player', {
             start: 3,
-            end: 4
+            end: 5
         }),
         frameRate: 10,
         repeat: -1
@@ -199,8 +210,8 @@ gameScene.create = function () {
     this.anims.create({
         key: 'right',
         frames: this.anims.generateFrameNumbers('player', {
-            start: 11,
-            end: 12
+            start: 12,
+            end: 14
         }),
         frameRate: 10,
         repeat: -1
@@ -287,6 +298,9 @@ gameScene.create = function () {
 
 // update function of the 'Game' scene
 gameScene.update = function () {
+    
+    // animation for player when standing still
+    this.player.anims.play('stand', true);
 
     // make background scroll endlessly
     this.bg.tilePositionY -= 3;
@@ -296,18 +310,18 @@ gameScene.update = function () {
     if (this.input.activePointer.isDown) {
 
         // if it is, check if it was pressed on the right of the bunny
-        if (this.input.activePointer.x > this.player.x) {
+        if (this.input.activePointer.downX > this.player.x) {
 
             // animate and move to the right at a certain speed
             this.player.anims.play('right', true);
-            this.player.x += 6;
+            this.player.x += 8;
 
-        // if it was pressed on the left of the bunny
+            // if it was pressed on the left of the bunny
         } else {
 
             // animate and move to the left at a certain speed
             this.player.anims.play('left', true);
-            this.player.x -= 6;
+            this.player.x -= 8;
         }
     }
 
@@ -335,29 +349,29 @@ gameScene.update = function () {
 
         // reset the score
         score = 0;
-        
+
         // stop the music
         music.stop();
-        
+
         // start the 'Game Over' scene
         this.scene.start('Game Over');
     }
 
     // if the player makes it to the top
     if (this.player.y < 50) {
-        
+
         // if it is the first run
         if (highScore === undefined) {
 
             // set highscore to the score value
             highScore = score;
 
-        // if it is not the first run
+            // if it is not the first run
         } else {
-            
+
             // check if the score is higher than the current highscore
             if (score > highScore) {
-                
+
                 // if it is, initialize the highscore variable to the score value
                 highScore = score;
             }
@@ -365,7 +379,7 @@ gameScene.update = function () {
 
         // stop the music
         music.stop();
-        
+
         // start the 'Win' scene
         this.scene.start('Win');
     }
@@ -649,7 +663,7 @@ win.preload = function () {
             }
         });
 
-    // if there is no new highscore
+        // if there is no new highscore
     } else {
 
         // create a 'Well done' caption
